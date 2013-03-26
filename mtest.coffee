@@ -8,7 +8,7 @@ if Meteor.isServer
     expect = chai.expect
     chai.Assertion.includeStack = true
   catch err
-    TLog.getLogger().error(err.message) if TLog
+    #TLog.getLogger().error(err.message) if TLog
 
   #defining remote Meteor method to be called from the client when we want to run server tests
   Meteor.methods {
@@ -35,6 +35,10 @@ if Meteor.isClient
 #and then it runs via u.run() recording the results in u.results
 class MSuite
   constructor: (@name)->
+    chai.should()
+    expect = chai.expect
+    chai.Assertion.includeStack = true
+
     @results = []
     @testNumber = 0
     @successfulNumber = 0
@@ -98,7 +102,10 @@ class MTestFramework
 
 
 #aliasing "describe" so that we can use the simple syntaxis
-describe = MTestFramework.describe
-
+#describe = MTestFramework.describe
+(exports ? this).describe = MTestFramework.describe
+(exports ? this).MTestFramework = MTestFramework
+(exports ? this).chai = chai
+(exports ? this).MSuite = MSuite
 
 

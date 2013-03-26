@@ -7,6 +7,7 @@ try {
         api.use(['coffeescript', 'bootstrap', 'underscore','templating','less'], 'client');
 
         api.add_files('client/lib/chai.js','client');
+
         api.add_files([
             'mtest.coffee',
             'sampleTests.coffee',
